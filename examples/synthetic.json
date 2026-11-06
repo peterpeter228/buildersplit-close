@@ -1,0 +1,74 @@
+{
+  "schema_version": "bsclose.synthetic.v1",
+  "sample_class": "SYNTHETIC",
+  "network": "hypercore-mainnet",
+  "builder": "0x1111111111111111111111111111111111111111",
+  "period_start": "2026-10-01T00:00:00Z",
+  "period_end": "2026-10-08T00:00:00Z",
+  "close_group_id": "demo",
+  "fee_currency_id": "hypercore-mainnet:USDC",
+  "coverage": "SOURCE_SUPPORTED",
+  "coverage_evidence": "SYNTHETIC CONTROL",
+  "verified_market_ids": [
+    "BTC"
+  ],
+  "rounding": {
+    "stage": "PER_FILL",
+    "scale": 8,
+    "mode": "HALF_EVEN"
+  },
+  "payments_confirmed": true,
+  "allocation_snapshot_confirmed": true,
+  "fills": [
+    {
+      "canonical_fill_id": "account:100000000000000000001",
+      "identity_evidence": "fixture",
+      "occurred_at": "2026-10-01T00:00:00Z",
+      "builder": "0x1111111111111111111111111111111111111111",
+      "attribution_evidence": "fixture",
+      "market_id": "BTC",
+      "market_class": "validator-operated-perp",
+      "fee_currency_id": "hypercore-mainnet:USDC",
+      "fee_basis": "GROSS",
+      "native_split_presence": "NO",
+      "builder_fee": "60",
+      "account": "a"
+    }
+  ],
+  "rules": [
+    {
+      "account": "a",
+      "beneficiary_id": "b",
+      "from": "2026-10-01T00:00:00Z",
+      "to": "2026-10-08T00:00:00Z",
+      "fee_basis": "GROSS",
+      "rate": "0.5"
+    }
+  ],
+  "balances": [
+    {
+      "beneficiary_id": "b",
+      "opening": "20",
+      "closing_statement": "12",
+      "opening_cutoff": "2026-10-01T00:00:00Z",
+      "closing_cutoff": "2026-10-08T00:00:00Z",
+      "confirmation_evidence": "fixture",
+      "independent_statement_evidence": "fixture"
+    }
+  ],
+  "payments": [
+    {
+      "beneficiary_id": "b",
+      "receipt_event_key": "fixture:tx:log0",
+      "evidence": "fixture",
+      "status": "CONFIRMED",
+      "channel": "EXTERNAL",
+      "currency_id": "hypercore-mainnet:USDC",
+      "occurred_at": "2026-10-01T00:00:00Z",
+      "close_group_id": "demo",
+      "confirmed_total": "35",
+      "applied": "35",
+      "other_group_allocated": "0"
+    }
+  ]
+}
