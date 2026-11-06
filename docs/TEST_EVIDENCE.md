@@ -17,3 +17,11 @@ Covered: schema guard, input class separation, unknown scope/fee/builder, identi
 Not performed: real customer golden comparison, actual Hyperliquid adapter validation, all 39 original production acceptance cases, native credit calibration, SQLite/backup/disaster recovery, independent source completeness, production UI/browser E2E, security audit, deployment, external API integration or market/paid-customer validation. Browser is not applicable to this CLI-only milestone. Static compile is not type checking; no typechecker run. No complete production build is claimed.
 
 Known limitations: this normalized JSON experiment is not the complete CSV/JSONL intake design. Statements about evidence and coverage inside synthetic fixtures are not independently verified. There is no real-source trust root; therefore even entirely valid synthetic inputs never become REVIEW_READY. Native/adjustment/refund workflows remain unsupported. Partial output I/O failures may leave an incomplete new run directory; callers must treat an error exit as failure, never as a completed export.
+
+## Independent review fixes
+
+Independent review reproduced fail-open synthetic input cases in the first draft: truthy non-boolean confirmations; string market registry enabling substring matches; ignored nested currency fields; absent close group with zero payments; empty/integer identifiers; permissive timestamp parsing; and a report hash not bound to scope. These were fixed before completing the milestone, with regression tests.
+
+The adapter now requires actual True confirmation flags, a nonempty string-array market registry, rejects unsupported nested fields, validates nonempty string IDs/evidence, requires close_group even for no-payment bundles, and accepts only RFC3339 UTC Z timestamps with at most millisecond precision. Reports include scope and a canonical sorted rule-set hash within business_hash. Changed Builder/group identity now changes report hash even if arithmetic is unchanged.
+
+`python -m unittest discover -s tests -q`: exit 0, 29 tests passed (0.007 seconds). `python -m compileall -q bsclose tests`: exit 0. This supersedes the first-draft test count, not its historical evidence. Production/source validation remains NOT_RUN.

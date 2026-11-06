@@ -13,6 +13,33 @@ def sample():
 class Tests(unittest.TestCase):
     def check_block(self,b,code):
         r=reconcile(b);self.assertEqual(r['status'],'BLOCKED');self.assertEqual(r['calculations'],[]);self.assertIn(code,[x['code'] for x in r['issues']])
+    def test_strict_confirmation_booleans(self):
+        for field in ['payments_confirmed','allocation_snapshot_confirmed']:
+            for value in ['false','UNKNOWN',1,[],None]:
+                b=sample();b[field]=value;self.check_block(b,'ALLOCATION_SNAPSHOT_UNKNOWN')
+    def test_strict_market_registry(self):
+        b=sample();b['verified_market_ids']='BTC';b['fills'][0]['market_id']='B';self.check_block(b,'MARKET_REGISTRY_INVALID')
+    def test_nested_unknown_fields(self):
+        for collection in ['fills','rules','balances','payments']:
+            b=sample();b[collection][0]['unsupported_currency_id']='USDT';self.check_block(b,'UNSUPPORTED_INPUT_FIELDS')
+        b=sample();b['balances'][0]['currency_id']='USDT';self.check_block(b,'UNSUPPORTED_INPUT_FIELDS')
+    def test_required_group_even_without_payments(self):
+        b=sample();b['payments']=[];del b['close_group_id'];self.check_block(b,'CLOSE_GROUP_INVALID')
+    def test_strict_nested_ids(self):
+        b=sample()
+        for collection in ['rules','balances','payments']: b[collection][0]['beneficiary_id']=''
+        self.check_block(b,'SCHEMA_INVALID')
+        b=sample();b['payments'][0]['receipt_event_key']=42;self.check_block(b,'SCHEMA_INVALID')
+    def test_timestamp_precision(self):
+        for value in ['2026-10-01 00:00:00Z','2026-10-01T00:00:00.000000001Z','20261001T000000Z']:
+            b=sample();b['fills'][0]['occurred_at']=value;self.check_block(b,'TIMESTAMP_UNIT_UNKNOWN')
+    def test_scope_bound_to_hash(self):
+        baseline=reconcile(sample())
+        b=sample();b['builder']='0x'+'2'*40;b['fills'][0]['builder']=b['builder']
+        self.assertNotEqual(baseline['business_hash'],reconcile(b)['business_hash'])
+        b=sample();b['close_group_id']='second';b['payments'][0]['close_group_id']='second'
+        self.assertNotEqual(baseline['business_hash'],reconcile(b)['business_hash'])
+        self.assertEqual(baseline['scope']['network'],'hypercore-mainnet')
     def test_golden(self):
         r=reconcile(sample());self.assertEqual(r['status'],'DIAGNOSTIC_ONLY');self.assertFalse(r['commercial_g0_passed']);self.assertEqual(r['calculations'][0]['closing_calculated'],'15.00000000');self.assertEqual(r['calculations'][0]['statement_variance'],'3.00000000')
     def test_unsupported_adjustments(self):

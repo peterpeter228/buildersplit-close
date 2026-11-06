@@ -2,7 +2,7 @@
 
 Source: [research PR #3](https://github.com/peterpeter228/blockchain-opportunity-radar/pull/3), fixed research commit `2e8d6d9eec44fca8f4abed94534dc85e6ebec3f5`, directory `research/web3-top3-20261106/`, especially 07–13 and 18–19. Notion project: https://app.notion.com/p/41001c9117228164a1d9df4a131ec98e . Linear validation task: HAP-30.
 
-Latest user request authorizes creating a private repository and starting development. It does not establish customer demand or replace the research's commercial stages. This implementation is a bounded <$0 new-services, ≤8-hour local technical experiment. Existing Stonk work and other automation claims are not changed.
+Latest user request authorizes creating a private repository and starting development. It does not establish customer demand or replace the research's commercial stages. This implementation is a bounded $0 new-services, ≤8-hour local technical experiment. Existing Stonk work and other automation claims are not changed.
 
 ## User job and hypothesis
 

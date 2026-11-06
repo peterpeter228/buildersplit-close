@@ -21,7 +21,7 @@ def money(value):
     return Decimal(value)
 
 def stamp(value):
-    if not isinstance(value, str) or not value.endswith('Z'):
+    if not isinstance(value, str) or not re.fullmatch(r'[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\.[0-9]{1,3})?Z', value):
         raise Invalid('TIMESTAMP_UNIT_UNKNOWN')
     try:
         parsed = datetime.fromisoformat(value[:-1]+'+00:00')
@@ -42,6 +42,10 @@ def reconcile(bundle, now=None):
     try:
         allowed={'schema_version','sample_class','network','builder','period_start','period_end','close_group_id','fee_currency_id','coverage','coverage_evidence','verified_market_ids','rounding','payments_confirmed','allocation_snapshot_confirmed','fills','rules','balances','payments'}
         if set(bundle)-allowed: raise Invalid('UNSUPPORTED_INPUT_FIELDS')
+        def nonempty(value):
+            return isinstance(value,str) and bool(value.strip())
+        if not nonempty(bundle.get('close_group_id')): raise Invalid('CLOSE_GROUP_INVALID')
+        if not nonempty(bundle.get('coverage_evidence')): fail('SOURCE_COVERAGE_UNPROVEN')
         if bundle.get('schema_version')!='bsclose.synthetic.v1': raise Invalid('SCHEMA_UNSUPPORTED')
         if bundle.get('sample_class')!='SYNTHETIC': raise Invalid('ADAPTER_UNVALIDATED')
         start,end=stamp(bundle['period_start']),stamp(bundle['period_end'])
@@ -54,8 +58,31 @@ def reconcile(bundle, now=None):
         fills=bundle['fills']; rules=bundle['rules']; balances=bundle['balances']; payments=bundle['payments']
         if not all(isinstance(v,list) for v in [fills,rules,balances,payments]): raise Invalid('SCHEMA_INVALID')
         if len(fills)>50000 or len(balances)>100: raise Invalid('INPUT_LIMIT_EXCEEDED')
-        if not bundle.get('payments_confirmed') or not bundle.get('allocation_snapshot_confirmed'): fail('ALLOCATION_SNAPSHOT_UNKNOWN')
+        if bundle.get('payments_confirmed') is not True or bundle.get('allocation_snapshot_confirmed') is not True: fail('ALLOCATION_SNAPSHOT_UNKNOWN')
+        markets=bundle.get('verified_market_ids')
+        if not isinstance(markets,list) or not markets or any(not isinstance(v,str) or not v for v in markets): raise Invalid('MARKET_REGISTRY_INVALID')
+        schemas={
+            'fills': {'canonical_fill_id','identity_evidence','occurred_at','builder','attribution_evidence','market_id','market_class','fee_currency_id','fee_basis','native_split_presence','builder_fee','account'},
+            'rules': {'account','beneficiary_id','from','to','fee_basis','rate'},
+            'balances': {'beneficiary_id','opening','closing_statement','opening_cutoff','closing_cutoff','confirmation_evidence','independent_statement_evidence'},
+            'payments': {'beneficiary_id','receipt_event_key','evidence','status','channel','currency_id','occurred_at','close_group_id','confirmed_total','applied','other_group_allocated'}
+        }
+        for collection,fields in schemas.items():
+            for row in bundle[collection]:
+                if not isinstance(row,dict): raise Invalid('SCHEMA_INVALID')
+                if set(row)-fields: raise Invalid('UNSUPPORTED_INPUT_FIELDS')
+        string_fields={
+            'fills':['canonical_fill_id','identity_evidence','occurred_at','builder','attribution_evidence','market_id','market_class','fee_currency_id','fee_basis','native_split_presence','builder_fee','account'],
+            'rules':['account','beneficiary_id','from','to','fee_basis','rate'],
+            'balances':['beneficiary_id','opening_cutoff','closing_cutoff','confirmation_evidence','independent_statement_evidence'],
+            'payments':['beneficiary_id','receipt_event_key','evidence','status','channel','currency_id','occurred_at','close_group_id','confirmed_total','applied','other_group_allocated']
+        }
+        for collection,fields in string_fields.items():
+            for row in bundle[collection]:
+                if any(not nonempty(row.get(field)) for field in fields):
+                    fail('SCHEMA_INVALID',collection)
         policy=bundle['rounding']
+        if not isinstance(policy,dict) or set(policy)!={'stage','scale','mode'}: raise Invalid('ROUNDING_INVALID')
         if policy['stage'] not in ('PER_FILL','PER_RECIPIENT_PERIOD'): raise Invalid('ROUNDING_INVALID')
         if type(policy['scale']) is not int or not 0<=policy['scale']<=18: raise Invalid('ROUNDING_INVALID')
         mode={'HALF_EVEN':ROUND_HALF_EVEN,'DOWN':ROUND_DOWN}.get(policy['mode'])
@@ -127,5 +154,7 @@ def reconcile(bundle, now=None):
     except (KeyError,TypeError,ValueError,ArithmeticError,AttributeError) as exc:
         fail(str(exc) if isinstance(exc,Invalid) else 'SCHEMA_INVALID')
     result={'engine_version':VERSION,'sample_class':bundle.get('sample_class'),'status':'BLOCKED' if issues else 'DIAGNOSTIC_ONLY','commercial_g0_passed':False,'counts':counts,'limitations':['Synthetic adapter only; no customer/source authenticity or coverage certification.','Native splits, adjustments, production adapters, review and storage workflows not implemented.'],'issues':sorted(issues,key=lambda x:(x['code'],x['ref'])),'calculations':[] if issues else rows}
+    result['scope']={k:bundle.get(k) for k in ['builder','network','period_start','period_end','close_group_id','fee_currency_id','rounding','verified_market_ids']}
+    result['rule_set_hash']=digest(sorted(bundle.get('rules',[]),key=canonical)) if isinstance(bundle.get('rules'),list) else None
     result['business_hash']=digest(result)
     return result
