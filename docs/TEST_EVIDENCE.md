@@ -25,3 +25,15 @@ Independent review reproduced fail-open synthetic input cases in the first draft
 The adapter now requires actual True confirmation flags, a nonempty string-array market registry, rejects unsupported nested fields, validates nonempty string IDs/evidence, requires close_group even for no-payment bundles, and accepts only RFC3339 UTC Z timestamps with at most millisecond precision. Reports include scope and a canonical sorted rule-set hash within business_hash. Changed Builder/group identity now changes report hash even if arithmetic is unchanged.
 
 `python -m unittest discover -s tests -q`: exit 0, 29 tests passed (0.007 seconds). `python -m compileall -q bsclose tests`: exit 0. This supersedes the first-draft test count, not its historical evidence. Production/source validation remains NOT_RUN.
+
+## Continuation: recoverable synthetic evidence bundles
+
+Added completion-last export marker, SHA-256 manifest for normalized synthetic input/report/CSV/readme, offline replay verifier, backup-copy validation and actual 50,000-fill capacity regression. This is a bounded file-bundle mechanism, not SQLite or a production disaster-recovery system. Raw source hash and normalized snapshot hash are distinct. Hashes are integrity evidence, not authenticated source evidence.
+
+Actual commands: `python -m unittest discover -s tests -v` exit 0, 37 tests in 0.672 seconds; `python -m compileall -q bsclose tests` exit 0. The 50K unique fill fixture produces synthetic accrual 1,500,000; 50,001 fills are rejected. Disk-write failure is fault-injected, not a real full-disk experiment; no valid completion marker survives. Each required artifact tamper is rejected. A copied bundle reproduces the same result; blocked inputs stay blocked under verification. Neither customer G0 nor the whole original 39-case production matrix is claimed complete.
+
+Continuation review found that merely checking a report's declared business_hash would miss a contradictory report repackaged with refreshed file hashes. Verification now compares the entire deterministic report and CSV against replay, not just the self-reported hash. A fixed evaluation_as_of is persisted and replayed, preventing PERIOD_OPEN results changing with wall-clock time. Regression covers inconsistent repackaged report, inconsistent CSV and a past evaluation time. Raw input_sha256 is an external provenance field: original raw bytes are not retained, so it cannot be independently authenticated here.
+
+Completion-last prevents ordinary interrupted runs being accepted; no fsync/atomic power-loss durability is promised. The 50K test exercises the calculation core, not a 50K file-export/backup end-to-end scenario. File-copy restoration is tested on the small synthetic example only.
+
+Final continuation regression: 40 unittest cases passed (0.629 seconds), exit 0; compileall exit 0; fresh CLI export and verify-run smoke both exit 0, DIAGNOSTIC_ONLY/VERIFIED. These 40 software tests are not the original research's 39 production acceptance cases.

@@ -7,9 +7,7 @@ import os
 from pathlib import Path
 from .core import reconcile,canonical
 
-def safe_cell(value):
-    value=str(value)
-    return "'"+value if value.lstrip().startswith(('=','+','-','@','\t','\r')) else value
+from .artifacts import safe_cell, export_run, verify_run
 
 def load(path):
     path=Path(path)
@@ -29,21 +27,16 @@ def load(path):
 
 def main():
     parser=argparse.ArgumentParser(description='BuilderSplit Close G0 synthetic experiment')
-    parser.add_argument('input'); parser.add_argument('--output',required=True)
+    parser.add_argument('input',nargs='?'); parser.add_argument('--output'); parser.add_argument('--verify-run')
     args=parser.parse_args()
     try:
+        if args.verify_run:
+            if args.input or args.output: raise ValueError('VERIFY_ARGUMENT_CONFLICT')
+            print(canonical(verify_run(args.verify_run)))
+            return 0
+        if not args.input or not args.output: raise ValueError('INPUT_AND_OUTPUT_REQUIRED')
         bundle,source_hash=load(args.input)
-        report=reconcile(bundle)
-        output=Path(args.output)
-        if any(p.is_symlink() for p in [output,*output.parents]): raise ValueError('SYMLINK_REJECTED')
-        output.mkdir(parents=False,exist_ok=False)
-        report['input_sha256']=source_hash
-        (output/'report.json').write_text(canonical(report)+'\n',encoding='utf-8')
-        columns=['beneficiary_id','currency_id','opening','accrual','external_paid','closing_calculated','customer_closing_statement','statement_variance']
-        with (output/'reconciliation.csv').open('w',newline='',encoding='utf-8') as f:
-            writer=csv.writer(f);writer.writerow(columns)
-            for row in report['calculations']: writer.writerow([safe_cell(row[c]) for c in columns])
-        (output/'README.txt').write_text('SYNTHETIC TECHNICAL EXPERIMENT ONLY. Not a customer report, payment instruction, or validated product. Inspect report.json status and limitations.\n',encoding='utf-8')
+        report=export_run(bundle,source_hash,args.output)
         print(report['status'])
         return 2 if report['status']=='BLOCKED' else 0
     except (ValueError,OSError) as exc:
