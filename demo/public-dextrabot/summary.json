@@ -1,0 +1,216 @@
+{
+  "builder": "0x49ae63056b3a0be0b166813ee687309ab653c07c",
+  "builder_fee_pool": {
+    "carryforward_balance": "UNKNOWN",
+    "closing_balance": "UNKNOWN",
+    "independent_closing_statement": "UNKNOWN",
+    "ledger_fee_pool": "UNKNOWN",
+    "opening_balance": "UNKNOWN",
+    "payouts": "UNKNOWN",
+    "public_observed_builder_fee": "595.460472",
+    "splits": "UNKNOWN",
+    "statement_variance": "UNKNOWN"
+  },
+  "builder_identity_basis": "Per-builder source URL plus saved DefiLlama and OpenChainBench registry; no builder column in CSV",
+  "builder_label": "Dextrabot (public attribution, not ownership proof)",
+  "commercial_g0_passed": false,
+  "counts": {
+    "in_period_rows": 6104,
+    "outside_period_rows": 0,
+    "saved_rows": 6104
+  },
+  "coverage": "UNKNOWN",
+  "coverage_caveat": "OpenChainBench/Totalis ~12:10 UTC daily cutoff caveat: their aggregates may differ from a full UTC-day window and these saved exports. Observed first/last fills do not establish complete coverage or prove a cutoff. No node data, reconstructed afternoons, extrapolation or missing-activity zeros are used.",
+  "csv_fields": [
+    "time",
+    "user",
+    "coin",
+    "side",
+    "px",
+    "sz",
+    "crossed",
+    "special_trade_type",
+    "tif",
+    "is_trigger",
+    "counterparty",
+    "closed_pnl",
+    "twap_id",
+    "builder_fee"
+  ],
+  "daily": [
+    {
+      "builder_fee_sum": "19.400503",
+      "date": "2026-11-01",
+      "decoded_sha256": "687f2013d1ed4aca8b0ea9a3612a9a5eacf847caff87b7e88f652a50b857e1e8",
+      "file": "raw/20261101.csv.lz4",
+      "first_observed_time": "2026-11-01T00:07:06Z",
+      "in_period_rows": 99,
+      "last_observed_time": "2026-11-01T12:09:21Z",
+      "outside_period_rows": 0,
+      "saved_rows": 99,
+      "source_sha256": "0d54b63e4a10930269fe479fe326f4d3cdc5ff8489ae15a4b1707490c4f2f7fa"
+    },
+    {
+      "builder_fee_sum": "24.319140",
+      "date": "2026-11-02",
+      "decoded_sha256": "fa019e26ca798e85bd89fa6bb337bed0a40673424614b8f43359697c38ea62fc",
+      "file": "raw/20261102.csv.lz4",
+      "first_observed_time": "2026-11-02T00:01:34Z",
+      "in_period_rows": 390,
+      "last_observed_time": "2026-11-02T10:47:30Z",
+      "outside_period_rows": 0,
+      "saved_rows": 390,
+      "source_sha256": "0f75cbb6ad2f045f1a99535ca1ea622c1875503cce39b90f1eccaf8e0d9937ef"
+    },
+    {
+      "builder_fee_sum": "28.890891",
+      "date": "2026-11-03",
+      "decoded_sha256": "3b2d985ad15c961bbc6029cb8130b76e942298e20c7d99db88f2298f4e6eb466",
+      "file": "raw/20261103.csv.lz4",
+      "first_observed_time": "2026-11-03T00:03:05Z",
+      "in_period_rows": 641,
+      "last_observed_time": "2026-11-03T12:11:53Z",
+      "outside_period_rows": 0,
+      "saved_rows": 641,
+      "source_sha256": "ec7f9232e124b74efe1199217d91a73c35be9d3047b655873c28c4d900bf6529"
+    },
+    {
+      "builder_fee_sum": "148.972720",
+      "date": "2026-11-04",
+      "decoded_sha256": "c78d70bb2f5d0cb7566c44e24c227b966893b2c41a5a947ca7e9ef366f89e26e",
+      "file": "raw/20261104.csv.lz4",
+      "first_observed_time": "2026-11-04T00:00:06Z",
+      "in_period_rows": 2005,
+      "last_observed_time": "2026-11-04T23:56:39Z",
+      "outside_period_rows": 0,
+      "saved_rows": 2005,
+      "source_sha256": "750ad48a77e24782d5c0bb1daf2611f78b642ca7804bfffcc1219c6a08dcdaea"
+    },
+    {
+      "builder_fee_sum": "281.019730",
+      "date": "2026-11-05",
+      "decoded_sha256": "795f0e395d48f1cab17759059bfab40266b42675deeb13f3b2d9e82e38302fe0",
+      "file": "raw/20261105.csv.lz4",
+      "first_observed_time": "2026-11-05T00:02:04Z",
+      "in_period_rows": 1646,
+      "last_observed_time": "2026-11-05T17:30:39Z",
+      "outside_period_rows": 0,
+      "saved_rows": 1646,
+      "source_sha256": "cac6d866323b57b4e80899bf18daca47fccc24fd970bb47a30b0c1eaa91f2f2b"
+    },
+    {
+      "builder_fee_sum": "72.221046",
+      "date": "2026-11-06",
+      "decoded_sha256": "998ce60aa069abbe5a489672a4defe1331ff8cb9a6d367027ed6a3f730bd2249",
+      "file": "raw/20261106.csv.lz4",
+      "first_observed_time": "2026-11-06T00:00:38Z",
+      "in_period_rows": 1209,
+      "last_observed_time": "2026-11-06T12:15:10Z",
+      "outside_period_rows": 0,
+      "saved_rows": 1209,
+      "source_sha256": "a30b750dcb08aa14cf41b98b9d4bc9a9e180ec36b1835a9b6f2d491ea051835d"
+    },
+    {
+      "builder_fee_sum": "20.636442",
+      "date": "2026-11-07",
+      "decoded_sha256": "7f7436db4bed9311f12255341ac4069983be1df80ccb8e5b0c707b02bcd71f45",
+      "file": "raw/20261107.csv.lz4",
+      "first_observed_time": "2026-11-07T00:04:24Z",
+      "in_period_rows": 114,
+      "last_observed_time": "2026-11-07T12:02:38Z",
+      "outside_period_rows": 0,
+      "saved_rows": 114,
+      "source_sha256": "15f64f0e70f206e8618215243e64dc6849b8407cfc0bbd46d963cabe5db8da21"
+    }
+  ],
+  "engine_evidence": {
+    "calculations": [],
+    "file": "public-dextrabot/engine-run/report.json",
+    "issue": "ADAPTER_UNVALIDATED",
+    "note": "Preserved compatibility probe, not the source of this sum; empty arrays mean not mapped, not zero activity",
+    "sha256": "f208df77ab7e63fb3bda51ab89d1326628ca6ecff897b40e3f897cfbc3f4b86b",
+    "status": "BLOCKED"
+  },
+  "generator": {
+    "file": "public-dextrabot/summarize_public_fees.py",
+    "sha256": "f0f698ad769771912608e7e09292a3a2bca3d97db48f1abbb4e2e9683c371c05"
+  },
+  "limitations": "Observed public fees only; not complete revenue, beneficiary entitlements, settlement, ledger accuracy, ownership or a G0 real-sample substitute. No real-money or adapter gate is unlocked.",
+  "not_engine_reconciliation": true,
+  "owner_decision": "t256u P7-Q1=A, 2026-11-08T17:37+08:00; acceptance adjusted",
+  "period_end": "2026-11-08T00:00:00Z",
+  "period_interval": "[start,end)",
+  "period_start": "2026-11-01T00:00:00Z",
+  "sample_class": "PUBLIC_DATA_ESTIMATE",
+  "source_manifest": {
+    "file": "public-dextrabot/SOURCES.md",
+    "sha256": "8c5442554de07e2c6fb6b7bcc8b354f50149248ce418cb3a7250c1a8d6b754b2"
+  },
+  "sources": [
+    {
+      "fetched_at": "2026-11-08T17:22:00.288493+08:00",
+      "file": "raw/20261101.csv.lz4",
+      "sha256": "0d54b63e4a10930269fe479fe326f4d3cdc5ff8489ae15a4b1707490c4f2f7fa",
+      "url": "https://stats-data.hyperliquid.xyz/Mainnet/builder_fills/0x49ae63056b3a0be0b166813ee687309ab653c07c/20261101.csv.lz4"
+    },
+    {
+      "fetched_at": "2026-11-08T17:22:00.797486+08:00",
+      "file": "raw/20261102.csv.lz4",
+      "sha256": "0f75cbb6ad2f045f1a99535ca1ea622c1875503cce39b90f1eccaf8e0d9937ef",
+      "url": "https://stats-data.hyperliquid.xyz/Mainnet/builder_fills/0x49ae63056b3a0be0b166813ee687309ab653c07c/20261102.csv.lz4"
+    },
+    {
+      "fetched_at": "2026-11-08T17:22:01.361477+08:00",
+      "file": "raw/20261103.csv.lz4",
+      "sha256": "ec7f9232e124b74efe1199217d91a73c35be9d3047b655873c28c4d900bf6529",
+      "url": "https://stats-data.hyperliquid.xyz/Mainnet/builder_fills/0x49ae63056b3a0be0b166813ee687309ab653c07c/20261103.csv.lz4"
+    },
+    {
+      "fetched_at": "2026-11-08T17:22:02.032466+08:00",
+      "file": "raw/20261104.csv.lz4",
+      "sha256": "750ad48a77e24782d5c0bb1daf2611f78b642ca7804bfffcc1219c6a08dcdaea",
+      "url": "https://stats-data.hyperliquid.xyz/Mainnet/builder_fills/0x49ae63056b3a0be0b166813ee687309ab653c07c/20261104.csv.lz4"
+    },
+    {
+      "fetched_at": "2026-11-08T17:22:02.454460+08:00",
+      "file": "raw/20261105.csv.lz4",
+      "sha256": "cac6d866323b57b4e80899bf18daca47fccc24fd970bb47a30b0c1eaa91f2f2b",
+      "url": "https://stats-data.hyperliquid.xyz/Mainnet/builder_fills/0x49ae63056b3a0be0b166813ee687309ab653c07c/20261105.csv.lz4"
+    },
+    {
+      "fetched_at": "2026-11-08T17:22:03.084450+08:00",
+      "file": "raw/20261106.csv.lz4",
+      "sha256": "a30b750dcb08aa14cf41b98b9d4bc9a9e180ec36b1835a9b6f2d491ea051835d",
+      "url": "https://stats-data.hyperliquid.xyz/Mainnet/builder_fills/0x49ae63056b3a0be0b166813ee687309ab653c07c/20261106.csv.lz4"
+    },
+    {
+      "fetched_at": "2026-11-08T17:22:03.247447+08:00",
+      "file": "raw/20261107.csv.lz4",
+      "sha256": "15f64f0e70f206e8618215243e64dc6849b8407cfc0bbd46d963cabe5db8da21",
+      "url": "https://stats-data.hyperliquid.xyz/Mainnet/builder_fills/0x49ae63056b3a0be0b166813ee687309ab653c07c/20261107.csv.lz4"
+    },
+    {
+      "fetched_at": "2026-11-08T17:22:22.577148+08:00",
+      "file": "raw/defillama-dextrabot.ts",
+      "sha256": "fc5cac5cb2cbb20fbdfdf956bcec03def736a06ccf352cf1ee162a4ac95a77a0",
+      "url": "https://raw.githubusercontent.com/DefiLlama/dimension-adapters/master/dexs/dextrabot.ts"
+    },
+    {
+      "fetched_at": "2026-11-08T17:22:22.581148+08:00",
+      "file": "raw/ocb-builders.json",
+      "sha256": "610765d8f3fa60f806fedd3fb1f4c7410b31768acb9667ed03cdc2700ae28c7a",
+      "url": "https://raw.githubusercontent.com/ChainBench/OpenChainBench/main/harnesses/hyperliquid-frontends/builders.json"
+    },
+    {
+      "fetched_at": "2026-11-08T17:22:22.657147+08:00",
+      "file": "raw/ocb-method.html",
+      "sha256": "fb03f308c4eb4c3acaa0dbeb382018e570c1dc59b03cee1d381f656784eb30ac",
+      "url": "https://openchainbench.com/benchmarks/hyperliquid-frontends"
+    }
+  ],
+  "status": "PUBLIC_FEE_SUMMARY_ONLY",
+  "sum_method": "Decimal precision 80 with Inexact trapped; sum each saved in-window builder_fee once, no rounding, scaling or deduplication",
+  "timestamp_encoding": "ISO 8601 UTC seconds with explicit Z",
+  "unit": "USDC",
+  "unit_basis": "Saved OpenChainBench methodology explicitly describes builder fee in USDC; CSV has no currency column. No USD/FX conversion or fee-rate inference."
+}

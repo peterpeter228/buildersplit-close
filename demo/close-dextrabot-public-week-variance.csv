@@ -1,0 +1,9 @@
+metric,public_observed_value,ledger_value,unit,variance
+builder_fee_pool,595.460472,UNKNOWN,USDC,UNKNOWN
+payouts,UNKNOWN,UNKNOWN,UNKNOWN,UNKNOWN
+opening_balance,UNKNOWN,UNKNOWN,UNKNOWN,UNKNOWN
+closing_balance,UNKNOWN,UNKNOWN,UNKNOWN,UNKNOWN
+carryforward_balance,UNKNOWN,UNKNOWN,UNKNOWN,UNKNOWN
+splits,UNKNOWN,UNKNOWN,UNKNOWN,UNKNOWN
+independent_closing_statement,UNKNOWN,UNKNOWN,UNKNOWN,UNKNOWN
+statement_variance,UNKNOWN,UNKNOWN,UNKNOWN,UNKNOWN

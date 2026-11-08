@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BuilderSplit Close · Dextrabot public-data estimate</title>
+<style>
+@page { size: A4 portrait; margin: 12mm; }
+* { box-sizing: border-box; }
+body { margin: 0; color: #20262e; background: #fff; font: 9pt/1.4 "WenQuanYi Zen Hei", sans-serif; }
+main { max-width: 186mm; margin: 0 auto; }
+.banner { color: #b00020; border: 1.5px solid #b00020; padding: 6px; text-align: center; font-size: 9pt; font-weight: bold; }
+h1 { font-size: 18pt; margin: 10px 0 0; }
+h2 { font-size: 10.5pt; margin: 10px 0 4px; }
+p { margin: 4px 0; }
+.subtitle { color: #485462; margin-bottom: 8px; }
+.meta { padding: 7px 9px; background: #f3f5f7; border-left: 3px solid #485462; }
+.label { font-weight: bold; }
+table { width: 100%; border-collapse: collapse; font-size: 8pt; table-layout: fixed; }
+th, td { padding: 4px; border-bottom: 1px solid #ccd1d7; text-align: right; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+thead th { background: #edf0f4; }
+th:first-child { text-align: left; width: 24%; font-weight: normal; }
+thead th:first-child { font-weight: bold; }
+.daily th:first-child { width: 18%; }
+.note { font-size: 8pt; color: #424d59; }
+.hash { font-size: 7.5pt; overflow-wrap: anywhere; }
+.identity { border-top: 1px solid #ccd1d7; padding-top: 4px; }
+footer { margin-top: 10px; }
+section, tr, footer { break-inside: avoid; }
+a { color: #344d69; }
+@media screen { body { padding: 18px; background: #e8ebef; } main { background: white; padding: 12mm; box-sizing: content-box; } }
+@media print { body { print-color-adjust: exact; -webkit-print-color-adjust: exact; } }
+</style>
+</head>
+<body><main>
+<header>
+<div class="banner">PUBLIC-DATA ESTIMATE — NOT THE BUILDER'S BOOKS / 公开数据估算，非对方账本</div>
+<h1>BuilderSplit Close <span style="font-size:12pt">Dextrabot 公开费用估算</span></h1>
+<p class="subtitle">Not an engine reconciliation result / 非引擎核账结果 · Not a payment instruction / 非付款指令</p>
+</header>
+<section class="meta" aria-label="Public estimate scope">
+<p><span class="label">Builder：</span>0x49ae63056b3a0be0b166813ee687309ab653c07c（公开归属，不证明所有权）</p>
+<p><span class="label">周期 [start,end)：</span>[2026-11-01T00:00:00Z, 2026-11-08T00:00:00Z) · UTC</p>
+<p><span class="label">范围：</span>6,104 observed export rows / 7 saved daily files；窗口外 0 行</p>
+<p><span class="label">单位：</span>USDC（冻结 OCB 方法说明；CSV 无币种列；无 USD/汇率换算、无费率推算）</p>
+<p><span class="label">授权：</span>t256u · P7-Q1=A · acceptance adjusted；PUBLIC_FEE_SUMMARY_ONLY · commercial_g0_passed=false</p>
+</section>
+<section>
+<h2>1 · 单一费用池 / Observed public fee pool</h2>
+<table aria-label="Observed builder fee pool and unknown ledger fields">
+<thead><tr><th>公开费用池</th><th>Observed fees<br>USDC</th><th>已付<br>Payouts</th><th>期初<br>Opening</th><th>期末<br>Closing</th><th>结转<br>Carryforward</th></tr></thead>
+<tbody><tr><th scope="row">builder fee pool</th><td>595.460472</td><td>UNKNOWN</td><td>UNKNOWN</td><td>UNKNOWN</td><td>UNKNOWN</td></tr></tbody>
+</table>
+<p class="note">Splits / 分账、independent statement / 独立账单、statement variance / 账单差异：<strong>UNKNOWN</strong>。无收款人分配、无付款或余额零值；CSV 所有 variance 均为 UNKNOWN。</p>
+</section>
+<section>
+<h2>2 · 冻结导出覆盖 / Saved export observations</h2>
+<table class="daily" aria-label="Daily observed export row counts times and builder fees">
+<thead><tr><th>UTC date</th><th>Rows in window</th><th>First observed UTC</th><th>Last observed UTC</th><th>builder_fee sum · USDC</th></tr></thead>
+<tbody><tr><th scope='row'>2026-11-01</th><td>99</td><td>00:07:06Z</td><td>12:09:21Z</td><td>19.400503</td></tr><tr><th scope='row'>2026-11-02</th><td>390</td><td>00:01:34Z</td><td>10:47:30Z</td><td>24.319140</td></tr><tr><th scope='row'>2026-11-03</th><td>641</td><td>00:03:05Z</td><td>12:11:53Z</td><td>28.890891</td></tr><tr><th scope='row'>2026-11-04</th><td>2005</td><td>00:00:06Z</td><td>23:56:39Z</td><td>148.972720</td></tr><tr><th scope='row'>2026-11-05</th><td>1646</td><td>00:02:04Z</td><td>17:30:39Z</td><td>281.019730</td></tr><tr><th scope='row'>2026-11-06</th><td>1209</td><td>00:00:38Z</td><td>12:15:10Z</td><td>72.221046</td></tr><tr><th scope='row'>2026-11-07</th><td>114</td><td>00:04:24Z</td><td>12:02:38Z</td><td>20.636442</td></tr></tbody>
+</table>
+<p class="note">按 CSV 明示 UTC 时间筛选，Decimal 原值相加；不舍入、不补齐、不去重。首末时间仅为观察到的成交边界，不证明日覆盖完整或具体截断时间。</p>
+<p class="note"><strong>OpenChainBench/Totalis ~12:10 UTC daily cutoff caveat:</strong> their aggregates may differ from a full UTC-day window and these exports. OCB reports node substitution/reconstruction; none is used here. 不外推午后、不将缺失成交视为零。</p>
+</section>
+<section class="identity">
+<h2>3 · 来源与保留的引擎阻断 / Provenance &amp; engine boundary</h2>
+<p class="note">归属依据：<a href="https://raw.githubusercontent.com/DefiLlama/dimension-adapters/master/dexs/dextrabot.ts">DefiLlama</a> + <a href="https://raw.githubusercontent.com/ChainBench/OpenChainBench/main/harnesses/hyperliquid-frontends/builders.json">OpenChainBench / HyperTracker registry</a>。获取：2026-11-08 17:22:00.288493–17:22:22.657147 +08:00（Asia/Shanghai）；精确 URL、逐文件时间及原始 SHA-256 见 <a href="public-dextrabot/SOURCES.md">SOURCES.md</a>。</p>
+<p class="hash">Summary JSON SHA-256: 12fa7d9741dc0ad100f50bcdb7786dde8f0faf70bbd3f5e00713eb8f8d886a9a<br>Source manifest SHA-256: 8c5442554de07e2c6fb6b7bcc8b354f50149248ce418cb3a7250c1a8d6b754b2</p>
+<p class="note">保留 <a href="public-dextrabot/engine-run/report.json">engine-run/report.json</a>：<strong>BLOCKED / ADAPTER_UNVALIDATED</strong>，calculations=[]（未映射，不是零成交）。本页非该引擎输出；未修改引擎或真实 adapter。</p>
+<p class="note"><a href="public-dextrabot/summary.json">Summary JSON</a> · <a href="close-dextrabot-public-week-variance.csv">Variance CSV</a> · <a href="P7-METHOD.md">Method &amp; reproduction</a>。哈希不是来源认证；不证明完整收入、账本准确性、结算或受益权；<strong>not a G0 real-sample substitute</strong>，不解锁真实资金或 adapter 门槛。</p>
+</section>
+<footer><div class="banner">PUBLIC-DATA ESTIMATE — NOT THE BUILDER'S BOOKS / 公开数据估算，非对方账本</div></footer>
+</main></body></html>
