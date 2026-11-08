@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BuilderSplit Close · 合成关账样例</title>
+<style>
+@page { size: A4 portrait; margin: 12mm; }
+* { box-sizing: border-box; }
+body { margin: 0; color: #20262e; background: #fff; font: 9.5pt/1.45 "WenQuanYi Zen Hei", sans-serif; }
+main { max-width: 186mm; margin: 0 auto; }
+.banner { color: #b00020; border: 1.5px solid #b00020; padding: 6px; text-align: center; font-size: 9pt; font-weight: bold; }
+h1 { font-size: 20pt; margin: 12px 0 0; }
+h2 { font-size: 11pt; margin: 13px 0 5px; }
+p { margin: 5px 0; }
+.subtitle { color: #485462; margin-bottom: 10px; }
+.meta { padding: 8px 10px; background: #f3f5f7; border-left: 3px solid #485462; }
+.label { font-weight: bold; }
+table { width: 100%; border-collapse: collapse; font-size: 8.5pt; table-layout: fixed; }
+th, td { padding: 6px 4px; border-bottom: 1px solid #ccd1d7; text-align: right; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+thead th { background: #edf0f4; }
+th:first-child { text-align: left; width: 29%; font-weight: normal; }
+thead th:first-child { font-weight: bold; }
+.variance { font-weight: bold; }
+.note { font-size: 8.3pt; color: #424d59; }
+.hash { font-size: 7.8pt; overflow-wrap: anywhere; }
+.identity { border-top: 1px solid #ccd1d7; padding-top: 6px; }
+footer { margin-top: 12px; }
+section, tr, footer { break-inside: avoid; }
+@media screen { body { padding: 18px; background: #e8ebef; } main { background: white; padding: 12mm; box-sizing: content-box; } }
+@media print { body { print-color-adjust: exact; -webkit-print-color-adjust: exact; } }
+</style>
+</head>
+<body><main>
+<header>
+<div class="banner">SYNTHETIC SAMPLE — NOT A REAL LEDGER / 合成样例，非真实账本</div>
+<h1>BuilderSplit Close <span style="font-size:13pt">合成关账样例</span></h1>
+<p class="subtitle">Offline close report · 七日 UTC 诊断 · 非付款指令 / Not a payment instruction</p>
+</header>
+<section class="meta" aria-label="Synthetic scope">
+<p><span class="label">虚构 Builder：</span>0x1111111111111111111111111111111111111111</p>
+<p><span class="label">周期 [start,end)：</span>[2026-10-01T00:00:00Z, 2026-10-08T00:00:00Z)</p>
+<p><span class="label">规模：</span>4 fills / 4 payees；上限 50,000 / 100；单一冻结规则集</p>
+<p><span class="label">单位：</span>USDC（hypercore-mainnet:USDC，仅合成记账单位）</p>
+<p><span class="label">状态：</span>DIAGNOSTIC_ONLY · 非 REVIEW_READY · commercial_g0_passed=false</p>
+</section>
+<section>
+<h2>1 · 关账展示 / Close view</h2>
+<p class="note">差异样本 4 行 / 全部 4 payees；以下两表使用同一组非零差异样本，不代表完整账本。</p>
+<table aria-label="Synthetic close balances">
+<thead><tr><th>合成收款方</th><th>应计</th><th>已付</th><th>期初</th><th>期末</th><th>结转*</th></tr></thead>
+<tbody><tr><th scope='row'>synthetic-payee-01</th><td>30.00000000</td><td>35</td><td>20</td><td>15.00000000</td><td>15.00000000</td></tr><tr><th scope='row'>synthetic-payee-02</th><td>30.00000000</td><td>35</td><td>0</td><td>-5.00000000</td><td>-5.00000000</td></tr><tr><th scope='row'>synthetic-payee-03</th><td>30.00000000</td><td>10</td><td>10</td><td>30.00000000</td><td>30.00000000</td></tr><tr><th scope='row'>synthetic-payee-04</th><td>30.00000000</td><td>0</td><td>0</td><td>30.00000000</td><td>30.00000000</td></tr></tbody>
+</table>
+<p class="note">期末 = 期初 + 应计 − 已付。已付仅为引擎计入本关账组的合成外部付款分配额（external_paid），不是现实付款确认。</p>
+<p class="note">*结转：仅重复展示带符号期末，表示“若沿用至下期，则为下期期初”；不是引擎独立字段、已完成结转或应付净额。负数不截零、不跨收款方抵销；负期末仅作合成贷方余额 / 超付示例，不断言现实原因。</p>
+</section>
+<section>
+<h2>2 · 差异样本 / Variance samples</h2>
+<table aria-label="Synthetic statement variances">
+<thead><tr><th>合成收款方</th><th>计算期末</th><th>合成独立期末陈述</th><th>差异（计算 − 陈述）</th></tr></thead>
+<tbody><tr><th scope='row'>synthetic-payee-01</th><td>15.00000000</td><td>12</td><td class='variance'>+3.00000000</td></tr><tr><th scope='row'>synthetic-payee-02</th><td>-5.00000000</td><td>0</td><td class='variance'>-5.00000000</td></tr><tr><th scope='row'>synthetic-payee-03</th><td>30.00000000</td><td>25</td><td class='variance'>+5.00000000</td></tr><tr><th scope='row'>synthetic-payee-04</th><td>30.00000000</td><td>32</td><td class='variance'>-2.00000000</td></tr></tbody>
+</table>
+<p class="note">陈述值来自合成输入的 closing_statement；不是客户核验。正差异表示计算期末高于陈述，负差异表示低于陈述；均不表示应收、欠付或付款建议。</p>
+</section>
+<section class="identity">
+<h2>3 · 输入与冻结规则 / Input &amp; frozen rule identity</h2>
+<p class="hash"><span class="label">输入哈希占位：</span>[INPUT_SHA256] · 合成输入实际 SHA-256：<br>7d0c9fdabe8a6fafd5c20eb1b80dc69ea3560b2bd57a84a09d572052ce387f5b</p>
+<p class="hash"><span class="label">规则版本占位：</span>[RULE_VERSION]（未分配；引擎不提供命名版本）<br>合成冻结规则实际身份 rule_set_hash：680cc7e3e489e1fe9c095f34d8e843f4c220320d5c9d80f6ee3b3da39e26e039</p>
+<p class="note">引擎版本 0.1.0-experiment；舍入 PER_FILL / scale 8 / HALF_EVEN。金额逐字取自引擎 Decimal 字符串，无浮点或显示舍入。</p>
+<p class="note">来源：report.json + reconciliation.csv；生成器仅比对两者内容，不替代引擎 replay 校验。哈希不是签名、真实来源证明或客户确认。样例不证明真实数据覆盖、原生分账支持或生产可用性。</p>
+</section>
+<footer><div class="banner">SYNTHETIC SAMPLE — NOT A REAL LEDGER / 合成样例，非真实账本</div></footer>
+</main></body></html>

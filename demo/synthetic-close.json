@@ -1,0 +1,91 @@
+{
+  "schema_version": "bsclose.synthetic.v1",
+  "sample_class": "SYNTHETIC",
+  "network": "hypercore-mainnet",
+  "builder": "0x1111111111111111111111111111111111111111",
+  "period_start": "2026-10-01T00:00:00Z",
+  "period_end": "2026-10-08T00:00:00Z",
+  "close_group_id": "synthetic-close-demo",
+  "fee_currency_id": "hypercore-mainnet:USDC",
+  "coverage": "SOURCE_SUPPORTED",
+  "coverage_evidence": "SYNTHETIC FIXTURE ONLY — NOT SOURCE VERIFICATION",
+  "verified_market_ids": ["BTC"],
+  "rounding": {"stage": "PER_FILL", "scale": 8, "mode": "HALF_EVEN"},
+  "payments_confirmed": true,
+  "allocation_snapshot_confirmed": true,
+  "fills": [
+    {
+      "canonical_fill_id": "synthetic:fill:01",
+      "identity_evidence": "SYNTHETIC FIXTURE",
+      "occurred_at": "2026-10-01T00:00:00Z",
+      "builder": "0x1111111111111111111111111111111111111111",
+      "attribution_evidence": "SYNTHETIC FIXTURE",
+      "market_id": "BTC",
+      "market_class": "validator-operated-perp",
+      "fee_currency_id": "hypercore-mainnet:USDC",
+      "fee_basis": "GROSS",
+      "native_split_presence": "NO",
+      "builder_fee": "60",
+      "account": "synthetic-account-01"
+    },
+    {
+      "canonical_fill_id": "synthetic:fill:02",
+      "identity_evidence": "SYNTHETIC FIXTURE",
+      "occurred_at": "2026-10-02T00:00:00Z",
+      "builder": "0x1111111111111111111111111111111111111111",
+      "attribution_evidence": "SYNTHETIC FIXTURE",
+      "market_id": "BTC",
+      "market_class": "validator-operated-perp",
+      "fee_currency_id": "hypercore-mainnet:USDC",
+      "fee_basis": "GROSS",
+      "native_split_presence": "NO",
+      "builder_fee": "60",
+      "account": "synthetic-account-02"
+    },
+    {
+      "canonical_fill_id": "synthetic:fill:03",
+      "identity_evidence": "SYNTHETIC FIXTURE",
+      "occurred_at": "2026-10-03T00:00:00Z",
+      "builder": "0x1111111111111111111111111111111111111111",
+      "attribution_evidence": "SYNTHETIC FIXTURE",
+      "market_id": "BTC",
+      "market_class": "validator-operated-perp",
+      "fee_currency_id": "hypercore-mainnet:USDC",
+      "fee_basis": "GROSS",
+      "native_split_presence": "NO",
+      "builder_fee": "60",
+      "account": "synthetic-account-03"
+    },
+    {
+      "canonical_fill_id": "synthetic:fill:04",
+      "identity_evidence": "SYNTHETIC FIXTURE",
+      "occurred_at": "2026-10-04T00:00:00Z",
+      "builder": "0x1111111111111111111111111111111111111111",
+      "attribution_evidence": "SYNTHETIC FIXTURE",
+      "market_id": "BTC",
+      "market_class": "validator-operated-perp",
+      "fee_currency_id": "hypercore-mainnet:USDC",
+      "fee_basis": "GROSS",
+      "native_split_presence": "NO",
+      "builder_fee": "60",
+      "account": "synthetic-account-04"
+    }
+  ],
+  "rules": [
+    {"account": "synthetic-account-01", "beneficiary_id": "synthetic-payee-01", "from": "2026-10-01T00:00:00Z", "to": "2026-10-08T00:00:00Z", "fee_basis": "GROSS", "rate": "0.5"},
+    {"account": "synthetic-account-02", "beneficiary_id": "synthetic-payee-02", "from": "2026-10-01T00:00:00Z", "to": "2026-10-08T00:00:00Z", "fee_basis": "GROSS", "rate": "0.5"},
+    {"account": "synthetic-account-03", "beneficiary_id": "synthetic-payee-03", "from": "2026-10-01T00:00:00Z", "to": "2026-10-08T00:00:00Z", "fee_basis": "GROSS", "rate": "0.5"},
+    {"account": "synthetic-account-04", "beneficiary_id": "synthetic-payee-04", "from": "2026-10-01T00:00:00Z", "to": "2026-10-08T00:00:00Z", "fee_basis": "GROSS", "rate": "0.5"}
+  ],
+  "balances": [
+    {"beneficiary_id": "synthetic-payee-01", "opening": "20", "closing_statement": "12", "opening_cutoff": "2026-10-01T00:00:00Z", "closing_cutoff": "2026-10-08T00:00:00Z", "confirmation_evidence": "SYNTHETIC FIXTURE", "independent_statement_evidence": "SYNTHETIC FIXTURE"},
+    {"beneficiary_id": "synthetic-payee-02", "opening": "0", "closing_statement": "0", "opening_cutoff": "2026-10-01T00:00:00Z", "closing_cutoff": "2026-10-08T00:00:00Z", "confirmation_evidence": "SYNTHETIC FIXTURE", "independent_statement_evidence": "SYNTHETIC FIXTURE"},
+    {"beneficiary_id": "synthetic-payee-03", "opening": "10", "closing_statement": "25", "opening_cutoff": "2026-10-01T00:00:00Z", "closing_cutoff": "2026-10-08T00:00:00Z", "confirmation_evidence": "SYNTHETIC FIXTURE", "independent_statement_evidence": "SYNTHETIC FIXTURE"},
+    {"beneficiary_id": "synthetic-payee-04", "opening": "0", "closing_statement": "32", "opening_cutoff": "2026-10-01T00:00:00Z", "closing_cutoff": "2026-10-08T00:00:00Z", "confirmation_evidence": "SYNTHETIC FIXTURE", "independent_statement_evidence": "SYNTHETIC FIXTURE"}
+  ],
+  "payments": [
+    {"beneficiary_id": "synthetic-payee-01", "receipt_event_key": "synthetic:receipt:01", "evidence": "SYNTHETIC FIXTURE", "status": "CONFIRMED", "channel": "EXTERNAL", "currency_id": "hypercore-mainnet:USDC", "occurred_at": "2026-10-02T00:00:00Z", "close_group_id": "synthetic-close-demo", "confirmed_total": "35", "applied": "35", "other_group_allocated": "0"},
+    {"beneficiary_id": "synthetic-payee-02", "receipt_event_key": "synthetic:receipt:02", "evidence": "SYNTHETIC FIXTURE", "status": "CONFIRMED", "channel": "EXTERNAL", "currency_id": "hypercore-mainnet:USDC", "occurred_at": "2026-10-03T00:00:00Z", "close_group_id": "synthetic-close-demo", "confirmed_total": "35", "applied": "35", "other_group_allocated": "0"},
+    {"beneficiary_id": "synthetic-payee-03", "receipt_event_key": "synthetic:receipt:03", "evidence": "SYNTHETIC FIXTURE", "status": "CONFIRMED", "channel": "EXTERNAL", "currency_id": "hypercore-mainnet:USDC", "occurred_at": "2026-10-04T00:00:00Z", "close_group_id": "synthetic-close-demo", "confirmed_total": "10", "applied": "10", "other_group_allocated": "0"}
+  ]
+}

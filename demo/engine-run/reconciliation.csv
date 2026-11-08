@@ -1,0 +1,5 @@
+beneficiary_id,currency_id,opening,accrual,external_paid,closing_calculated,customer_closing_statement,statement_variance
+synthetic-payee-01,hypercore-mainnet:USDC,20,30.00000000,35,15.00000000,12,3.00000000
+synthetic-payee-02,hypercore-mainnet:USDC,0,30.00000000,35,'-5.00000000,0,'-5.00000000
+synthetic-payee-03,hypercore-mainnet:USDC,10,30.00000000,10,30.00000000,25,5.00000000
+synthetic-payee-04,hypercore-mainnet:USDC,0,30.00000000,0,30.00000000,32,'-2.00000000
