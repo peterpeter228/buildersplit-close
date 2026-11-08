@@ -1,0 +1,18 @@
+{
+  "schema_version": "bsclose.synthetic.v1",
+  "sample_class": "PUBLIC_DATA_ESTIMATE",
+  "network": "hypercore-mainnet",
+  "builder": "0x49ae63056b3a0be0b166813ee687309ab653c07c",
+  "period_start": "2026-11-01T00:00:00Z",
+  "period_end": "2026-11-08T00:00:00Z",
+  "close_group_id": "dextrabot-public-20261101-20261108",
+  "fee_currency_id": "hypercore-mainnet:USDC",
+  "coverage": "UNKNOWN",
+  "coverage_evidence": "Compatibility probe only; public daily exports do not establish complete UTC-day coverage. No fills mapped or amounts calculated.",
+  "payments_confirmed": false,
+  "allocation_snapshot_confirmed": false,
+  "fills": [],
+  "rules": [],
+  "balances": [],
+  "payments": []
+}
