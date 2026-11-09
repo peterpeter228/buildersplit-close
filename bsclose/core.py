@@ -2,10 +2,13 @@
 import hashlib
 import json
 import re
+from bisect import bisect_right
 from datetime import datetime, timezone
 from decimal import Decimal, localcontext, ROUND_HALF_EVEN, ROUND_DOWN
 
-VERSION = '0.1.0-experiment'
+VERSION = '0.1.1-experiment'
+MAX_RULES = 10000
+MAX_PAYMENTS = 50000
 class Invalid(ValueError):
     pass
 
@@ -57,7 +60,7 @@ def reconcile(bundle, now=None):
         if bundle.get('coverage')!='SOURCE_SUPPORTED' or not bundle.get('coverage_evidence'): fail('SOURCE_COVERAGE_UNPROVEN')
         fills=bundle['fills']; rules=bundle['rules']; balances=bundle['balances']; payments=bundle['payments']
         if not all(isinstance(v,list) for v in [fills,rules,balances,payments]): raise Invalid('SCHEMA_INVALID')
-        if len(fills)>50000 or len(balances)>100: raise Invalid('INPUT_LIMIT_EXCEEDED')
+        if len(fills)>50000 or len(balances)>100 or len(rules)>MAX_RULES or len(payments)>MAX_PAYMENTS: raise Invalid('INPUT_LIMIT_EXCEEDED')
         if bundle.get('payments_confirmed') is not True or bundle.get('allocation_snapshot_confirmed') is not True: fail('ALLOCATION_SNAPSHOT_UNKNOWN')
         markets=bundle.get('verified_market_ids')
         if not isinstance(markets,list) or not markets or any(not isinstance(v,str) or not v for v in markets): raise Invalid('MARKET_REGISTRY_INVALID')
@@ -89,6 +92,21 @@ def reconcile(bundle, now=None):
         if mode is None: raise Invalid('ROUNDING_INVALID')
         quantum=Decimal(1).scaleb(-policy['scale'])
         counts['input_fills']=len(fills)
+        # Validate every rule, including accounts without fills, before lookup.
+        # Non-overlapping half-open intervals allow logarithmic lookup per fill.
+        rule_index={}
+        for i,r in enumerate(rules):
+            begin,finish=stamp(r['from']),stamp(r['to'])
+            if begin>=finish: raise Invalid('RULE_INTERVAL_INVALID')
+            if r['fee_basis'] not in ('GROSS','BUILDER_KEPT'): raise Invalid('FEE_BASIS_UNKNOWN')
+            rate=money(r['rate'])
+            if not Decimal(0)<=rate<=Decimal(1): raise Invalid('RATE_INVALID')
+            rule_index.setdefault(r['account'],[]).append((begin,finish,r,rate))
+        for account,intervals in rule_index.items():
+            intervals.sort(key=lambda x:x[0])
+            if any(a[1]>b[0] for a,b in zip(intervals,intervals[1:])):
+                raise Invalid('RULE_OVERLAP')
+            rule_index[account]=([r[0] for r in intervals],intervals)
         totals={}; seen={}
         with localcontext() as ctx:
             ctx.prec=256
@@ -111,9 +129,10 @@ def reconcile(bundle, now=None):
                 if f.get('native_split_presence')!='NO': fail('NATIVE_SPLIT_UNCALIBRATED',ref); continue
                 fee=money(f['builder_fee'])
                 if fee<0: fail('NEGATIVE_FEE_UNSUPPORTED',ref); continue
-                matches=[r for r in rules if r['account']==f['account'] and stamp(r['from'])<=t<stamp(r['to'])]
-                if len(matches)!=1: fail('RULE_GAP' if not matches else 'RULE_OVERLAP',ref); continue
-                r=matches[0]
+                starts,intervals=rule_index.get(f['account'],([],[]))
+                position=bisect_right(starts,t)-1
+                if position<0 or t>=intervals[position][1]: fail('RULE_GAP',ref); continue
+                _,_,r,rate=intervals[position]
                 if r['fee_basis']!=f['fee_basis']: fail('FEE_BASIS_UNKNOWN',ref); continue
                 rate=money(r['rate'])
                 if not Decimal(0)<=rate<=Decimal(1): fail('RATE_INVALID',ref); continue

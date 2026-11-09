@@ -4,10 +4,11 @@ Hashes are integrity checks, not signatures or protection from a malicious write
 import csv
 import hashlib
 import io
+import re
 from datetime import datetime, timezone
 import json
 from pathlib import Path
-from .core import canonical, reconcile, stamp
+from .core import canonical, reconcile, stamp, Invalid
 
 FILES = ('input.json','report.json','reconciliation.csv','README.txt')
 
@@ -17,6 +18,13 @@ def sha(data):
 def safe_cell(value):
     value=str(value)
     return "'"+value if value.lstrip().startswith(('=','+','-','@','\t','\r')) else value
+
+def numeric_cell(value):
+    # Derived sums may exceed the 100-character input limit. The engine's
+    # precision is 256 and scale <=18; retain a separate bounded output grammar.
+    if not isinstance(value, str) or len(value)>300 or not re.fullmatch(r'-?(?:0|[1-9][0-9]*)(?:\.[0-9]+)?', value):
+        raise Invalid('DECIMAL_INVALID')
+    return value
 
 def check_path(path):
     path=Path(path)
@@ -28,7 +36,11 @@ def csv_render(report):
     stream=io.StringIO(newline='')
     columns=['beneficiary_id','currency_id','opening','accrual','external_paid','closing_calculated','customer_closing_statement','statement_variance']
     writer=csv.writer(stream);writer.writerow(columns)
-    for row in report['calculations']: writer.writerow([safe_cell(row[c]) for c in columns])
+    for row in report['calculations']:
+        # Only fixed numeric schema columns bypass text escaping, after strict
+        # decimal validation. Identifiers always remain formula-protected.
+        writer.writerow([safe_cell(row[c]) if c in columns[:2] else
+                         numeric_cell(row[c]) for c in columns])
     return stream.getvalue().encode('utf-8')
 
 def export_run(bundle, source_hash, output):

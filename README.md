@@ -40,3 +40,25 @@ python -m bsclose --verify-run /tmp/bsclose-new-run
 New exports save a normalized synthetic input snapshot and write `COMPLETED.json` last. Verification checks the required artifact hashes and recomputes the business result. A byte-for-byte copied backup can be verified on another path; missing markers, altered files, symlinks or inconsistent replay fail. Exit 0 for verification means integrity/replay matched only: a BLOCKED report remains BLOCKED. Hashes are not signatures and do not authenticate a source or protect against a malicious writer replacing all files. Older exports without the marker cannot pass this verifier; create a new run rather than overwrite them.
 
 See docs/CUSTOMER_SAMPLE_CHECKLIST.md before any real-input work.
+
+## Audit hardening (0.1.1)
+
+All supplied rules are validated even if no fill matches them. Rules must have a
+known basis, a decimal rate in [0,1], and a positive half-open UTC interval.
+Overlapping intervals for the same account block the entire input, including
+unused rules; adjacent intervals are permitted. This is intentionally stricter
+than validating only the rules used by current fills.
+
+Capacity is bounded at 50,000 fills, 10,000 rules, 50,000 payment records and
+100 balance records. Rules are parsed once and indexed by account/time; lookup
+uses binary search rather than scanning every rule for each fill. These are
+technical bounds, not proof that customer inputs or accounting semantics are valid.
+
+CSV identifier columns are formula-escaped. Fixed monetary columns use strict
+decimal serialization, preserving negative values as numeric-looking decimal
+cells without an apostrophe. CSV itself does not carry spreadsheet type metadata.
+
+Engine-version changes intentionally change replay hashes. Historical bundles
+must be verified using their original engine checkout; new runs should use a new
+output directory. Never overwrite old evidence or claim old artifacts passed
+the upgraded verifier.
