@@ -1,0 +1,56 @@
+test_backup_replay (test_artifacts.Artifacts.test_backup_replay) ... ok
+test_blocked_replay_not_upgrade (test_artifacts.Artifacts.test_blocked_replay_not_upgrade) ... ok
+test_capacity_50000 (test_artifacts.Artifacts.test_capacity_50000) ... ok
+test_disk_write_failure (test_artifacts.Artifacts.test_disk_write_failure) ... ok
+test_existing_unchanged (test_artifacts.Artifacts.test_existing_unchanged) ... ok
+test_fixed_evaluation_time (test_artifacts.Artifacts.test_fixed_evaluation_time) ... ok
+test_missing_marker (test_artifacts.Artifacts.test_missing_marker) ... ok
+test_repacked_contradictory_report (test_artifacts.Artifacts.test_repacked_contradictory_report) ... ok
+test_repacked_wrong_csv (test_artifacts.Artifacts.test_repacked_wrong_csv) ... ok
+test_symlink_artifact (test_artifacts.Artifacts.test_symlink_artifact) ... ok
+test_tampering_each_file (test_artifacts.Artifacts.test_tampering_each_file) ... ok
+test_adjacent_intervals_and_gap (test_audit_repairs.AuditRepairs.test_adjacent_intervals_and_gap) ... ok
+test_caps_before_row_validation (test_audit_repairs.AuditRepairs.test_caps_before_row_validation) ... ok
+test_csv_text_escaped_numeric_injection_rejected (test_audit_repairs.AuditRepairs.test_csv_text_escaped_numeric_injection_rejected) ... ok
+test_large_derived_numeric_export_replay (test_audit_repairs.AuditRepairs.test_large_derived_numeric_export_replay) ... ok
+test_negative_numeric_export (test_audit_repairs.AuditRepairs.test_negative_numeric_export) ... ok
+test_no_fills_still_validate_rules (test_audit_repairs.AuditRepairs.test_no_fills_still_validate_rules) ... ok
+test_payment_bound (test_audit_repairs.AuditRepairs.test_payment_bound) ... ok
+test_rule_bound_and_parse_work (test_audit_repairs.AuditRepairs.test_rule_bound_and_parse_work) ... ok
+test_rules_order_invariant (test_audit_repairs.AuditRepairs.test_rules_order_invariant) ... ok
+test_unmatched_overlaps_blocked (test_audit_repairs.AuditRepairs.test_unmatched_overlaps_blocked) ... ok
+test_unmatched_rules_validated (test_audit_repairs.AuditRepairs.test_unmatched_rules_validated) ... ok
+test_conflict (test_core.Tests.test_conflict) ... ok
+test_csv (test_core.Tests.test_csv) ... ok
+test_decimal (test_core.Tests.test_decimal) ... ok
+test_declared_coverage (test_core.Tests.test_declared_coverage) ... ok
+test_duplicate (test_core.Tests.test_duplicate) ... ok
+test_end_excluded (test_core.Tests.test_end_excluded) ... ok
+test_golden (test_core.Tests.test_golden) ... ok
+test_input_guards (test_core.Tests.test_input_guards) ... ok
+test_malformed_row (test_core.Tests.test_malformed_row) ... ok
+test_missing_balances (test_core.Tests.test_missing_balances) ... ok
+test_native (test_core.Tests.test_native) ... ok
+test_negative (test_core.Tests.test_negative) ... ok
+test_nested_unknown_fields (test_core.Tests.test_nested_unknown_fields) ... ok
+test_not_real_adapter (test_core.Tests.test_not_real_adapter) ... ok
+test_open_period (test_core.Tests.test_open_period) ... ok
+test_order (test_core.Tests.test_order) ... ok
+test_payment_duplicate (test_core.Tests.test_payment_duplicate) ... ok
+test_payments (test_core.Tests.test_payments) ... ok
+test_precision (test_core.Tests.test_precision) ... ok
+test_required_group_even_without_payments (test_core.Tests.test_required_group_even_without_payments) ... ok
+test_rounding (test_core.Tests.test_rounding) ... ok
+test_rules (test_core.Tests.test_rules) ... ok
+test_scope_bound_to_hash (test_core.Tests.test_scope_bound_to_hash) ... ok
+test_strict_confirmation_booleans (test_core.Tests.test_strict_confirmation_booleans) ... ok
+test_strict_market_registry (test_core.Tests.test_strict_market_registry) ... ok
+test_strict_nested_ids (test_core.Tests.test_strict_nested_ids) ... ok
+test_timestamp_precision (test_core.Tests.test_timestamp_precision) ... ok
+test_unknowns (test_core.Tests.test_unknowns) ... ok
+test_unsupported_adjustments (test_core.Tests.test_unsupported_adjustments) ... ok
+
+----------------------------------------------------------------------
+Ran 51 tests in 1.578s
+
+OK

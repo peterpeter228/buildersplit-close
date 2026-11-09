@@ -33,3 +33,14 @@ Production deploy, repo visibility, license/IP, contest submission, any outbound
 ## Key SHAs
 - G0 core: `c1a4593`
 - G1 pack head: `b94d106`
+
+## DOT engineering takeover and audit repair — 2026-11-09
+
+User explicitly returned engineering to dot and requested merge/push after
+completion. Local work based on d583aa8; publication is subject to current
+remote-head and single-writer coordination verification.
+
+R1/R2/R3 repaired; 51 unittest tests, compileall, CLI export/replay/no-overwrite and
+combined 50K fills / 10K rules / 50K payments capacity check passed. See
+docs/AUDIT_REPAIR_20261109.md and its test log. No real adapter or commercial gate
+upgrade: ADAPTER_UNVALIDATED remains enforced for non-synthetic input.
